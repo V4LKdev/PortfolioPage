@@ -1,3 +1,4 @@
+
 /* ================================================
    CUSTOM OVERRIDES – Dark + Electric Blue
    Fonts: Inter (body) + JetBrains Mono (tags/code)
@@ -20,7 +21,6 @@ textarea {
 .banner,
 .spotlight {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    /* No background-color here – they become transparent to show the glow! */
     color: #ffffff !important;
 }
 
@@ -39,7 +39,7 @@ p, li, .content p {
     line-height: 1.7 !important;
 }
 strong, b {
-    color: #ffffff !important; /* FIX: makes tech labels readable */
+    color: #ffffff !important;
 }
 
 /* 5. Accent: Electric Blue */
@@ -55,7 +55,7 @@ a:hover {
 /* ========================================== */
 #top-nav {
     position: fixed;
-    top: -80px; /* hidden off-screen */
+    top: -80px;
     left: 0;
     width: 100%;
     z-index: 10000;
@@ -66,7 +66,7 @@ a:hover {
     padding: 0.8rem 2rem;
     opacity: 0;
     transition: top 0.35s ease-in-out, opacity 0.35s ease-in-out;
-    pointer-events: none; /* prevents clicking when hidden */
+    pointer-events: none;
 }
 #top-nav.visible {
     top: 0;
@@ -111,6 +111,7 @@ a:hover {
 
 #wrapper {
     overflow: visible !important;
+    background: transparent !important;
 }
 
 /* ========================================== */
@@ -158,11 +159,11 @@ a:hover {
 }
 
 #about-section {
-    margin-top: 8rem; /* adds breathing room on desktop */
+    margin-top: 8rem;
 }
 @media screen and (max-width: 736px) {
     #about-section {
-        margin-top: 0.5rem; /* minimal on mobile */
+        margin-top: 0.5rem;
     }
 }
 
@@ -195,7 +196,7 @@ input[type="submit"].primary {
     background-color: rgba(79, 108, 247, 0.05) !important;
 }
 
-/* CTA "Say Hello" – Slick, large, with mail icon */
+/* CTA "Say Hello" */
 .actions.special {
     justify-content: center !important;
 }
@@ -220,13 +221,12 @@ input[type="submit"].primary {
     box-shadow: 0 8px 40px rgba(79, 108, 247, 0.4) !important;
     transform: translateY(-2px) !important;
 }
-/* Kill any previously added pseudo-element */
 .actions.special .button.large::before {
     content: none !important;
 }
 
 /* ========================================== */
-/* IMAGES – Sharp corners, scaled for headshot */
+/* IMAGES – Sharp corners                      */
 /* ========================================== */
 .image img,
 .spotlight .image img,
@@ -237,14 +237,13 @@ input[type="submit"].primary {
     width: 100%;
     height: auto;
 }
-/* Remove the broken headshot limiter */
 .spotlight .image img {
     max-width: 100% !important;
     display: block;
 }
 
 /* ========================================== */
-/* FLUID SPACING – 0 on mobile, grows with screen */
+/* FLUID SPACING                              */
 /* ========================================== */
 .wrapper {
     padding: clamp(0rem, 4vw, 6rem) 0 !important;
@@ -261,7 +260,6 @@ input[type="submit"].primary {
 
 /* Mobile responsiveness */
 @media screen and (max-width: 736px) {
-    /* SPACING: almost zero on mobile */
     .wrapper {
         padding: 0rem 0 !important;
     }
@@ -274,8 +272,6 @@ input[type="submit"].primary {
     .inner {
         padding: 0.25rem 0 !important;
     }
-
-    /* Keep the other mobile overrides (nav, orb, images) */
     .spotlight .image img {
         max-width: 80% !important;
     }
@@ -296,7 +292,7 @@ input[type="submit"].primary {
 }
 
 /* ========================================== */
-/* SKILLS TAGS – JetBrains Mono, sharp        */
+/* SKILLS TAGS – JetBrains Mono               */
 /* ========================================== */
 .skills-tags {
     display: flex;
@@ -328,7 +324,7 @@ input[type="submit"].primary {
 }
 
 /* ========================================== */
-/* FOOTER – Clean, no watermark               */
+/* FOOTER                                     */
 /* ========================================== */
 .footer {
     background-color: #0a0a0f !important;
@@ -373,89 +369,100 @@ input[type="submit"].primary {
     margin-bottom: 0.2rem;
 }
 
-
-/* ========================================== */
-/* AMBIENT GLOW – now matches the hero orb    */
-/* ========================================== */
-
-/* Outer container – JS controls position + opacity */
-.ambient-glow {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    width: clamp(300px, 35vw, 500px);  /* similar to hero, scales nicely */
-    height: clamp(300px, 35vw, 500px);
-    pointer-events: none;
-    z-index: 0;
-    will-change: transform, opacity;
-    transform: translate(0px, 0px); /* overridden by JS */
-    opacity: 0; /* JS controls this */
-}
-
-/* Inner visual – identical to .abstract-shape */
-.ambient-glow .ambient-inner {
-    width: 100%;
-    height: 100%;
-    background: conic-gradient(
-            from 0deg,
-            #4f6cf7,
-            #1a2a6c,
-            #4f6cf7,
-            #7b93ff,
-            #1a2a6c,
-            #4f6cf7
-    );
-    border-radius: 50%;
-    filter: blur(80px) brightness(0.9);
-    animation: morphingOrbBg 8s ease-in-out infinite alternate;
-    will-change: transform, border-radius;
-}
-
-/* Morphing keyframe – without opacity changes, so JS fade works perfectly */
-@keyframes morphingOrbBg {
-    0% {
-        border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
-        transform: scale(1) rotate(0deg);
-    }
-    50% {
-        border-radius: 60% 40% 30% 70% / 40% 60% 70% 30%;
-        transform: scale(1.1) rotate(45deg);
-    }
-    100% {
-        border-radius: 30% 70% 50% 50% / 60% 40% 50% 50%;
-        transform: scale(0.95) rotate(90deg);
-    }
-}
-
-/* The hero's original orb stays as is, but now matches perfectly */
-.abstract-shape {
-    width: 400px;
-    height: 400px;
-    background: conic-gradient(
-            from 0deg,
-            #4f6cf7,
-            #1a2a6c,
-            #4f6cf7,
-            #7b93ff,
-            #1a2a6c,
-            #4f6cf7
-    );
-    border-radius: 50%;
-    filter: blur(80px) brightness(0.9);
-    opacity: 0.7;
-    animation: morphingOrb 8s ease-in-out infinite alternate;
-}
-
-
-
-/* Remove all section borders/lines */
+/* Remove borders/lines */
 .divided > section,
 .divided > .wrapper,
 .divided > .spotlight {
     border-top: none !important;
     border-bottom: none !important;
 }
-/* In case any child element has borders */
 .spotlight, .wrapper, .banner {
     border: none !important;
+}
+
+/* ========================================== */
+/* DISABLE SCROLL FADE-IN ON IMAGES           */
+/* ========================================== */
+.onscroll-image-fade-in .image img,
+.onscroll-image-fade-in .image,
+.banner .image img,
+.spotlight .image img {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+    transition: none !important;
+    animation: none !important;
+}
+
+/* Also catch any wrapper that might hide things on load */
+body.is-preload .image img {
+    opacity: 1 !important;
+}
+
+/* ========================================== */
+/* AMBIENT BACKGROUND – subtle, drifting aurora */
+/* ========================================== */
+
+@keyframes ambientSwirl {
+    0%   { background-position: 0% 0%, 0% 0%; }
+    25%  { background-position: 100% 0%, 100% 0%; }
+    50%  { background-position: 100% 100%, 100% 100%; }
+    75%  { background-position: 0% 100%, 0% 100%; }
+    100% { background-position: 0% 0%, 0% 0%; }
+}
+
+#ambient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;  /* FAST toggle */
+
+    /* ---- THREE SMALL, SOFT AURORA PATCHES ---- */
+    background:
+        /* Patch 1: upper-left */
+            radial-gradient(ellipse 50% 40% at 25% 30%,
+            rgba(79, 108, 247, 0.06) 0%,
+            rgba(26, 42, 108, 0.03) 40%,
+            transparent 70%
+            ),
+                /* Patch 2: lower-right */
+            radial-gradient(ellipse 45% 35% at 75% 70%,
+            rgba(123, 147, 255, 0.04) 0%,
+            rgba(79, 108, 247, 0.02) 40%,
+            transparent 70%
+            ),
+                /* Patch 3: bottom-center (subtle) */
+            radial-gradient(ellipse 50% 30% at 50% 100%,
+            rgba(26, 42, 108, 0.06) 0%,
+            transparent 60%
+            ),
+                /* Solid dark base – keeps the page dark */
+            #0a0a0f;
+
+    background-size: 200% 200%, 200% 200%, 100% 100%;
+    animation: ambientSwirl 12s ease-in-out infinite alternate;
+    will-change: background-position, opacity;
+}
+
+/* ---- NOISE OVERLAY – kills banding completely ---- */
+#ambient-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    opacity: 0.25;
+    mix-blend-mode: overlay;
+}
+
+#ambient-bg.visible {
+    opacity: 1;
 }
