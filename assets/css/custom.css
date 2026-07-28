@@ -1,0 +1,461 @@
+/* ================================================
+   CUSTOM OVERRIDES – Dark + Electric Blue
+   Fonts: Inter (body) + JetBrains Mono (tags/code)
+   REFINED: Nav, animations, spacing, readability
+   ================================================ */
+
+/* 1. Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* 2. Global reset */
+body,
+input,
+select,
+textarea {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background-color: #0a0a0f !important;
+    color: #ffffff !important;
+}
+.wrapper,
+.banner,
+.spotlight {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    /* No background-color here – they become transparent to show the glow! */
+    color: #ffffff !important;
+}
+
+/* 3. Headings */
+h1, h2, h3, h4, h5, h6,
+.banner h1, .spotlight h2, .wrapper h2 {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    color: #ffffff !important;
+}
+
+/* 4. Body text */
+p, li, .content p {
+    color: #c0c0d0 !important;
+    line-height: 1.7 !important;
+}
+strong, b {
+    color: #ffffff !important; /* FIX: makes tech labels readable */
+}
+
+/* 5. Accent: Electric Blue */
+a, a:visited {
+    color: #4f6cf7 !important;
+}
+a:hover {
+    color: #7b93ff !important;
+}
+
+/* ========================================== */
+/* TOP NAVIGATION BAR                         */
+/* ========================================== */
+#top-nav {
+    position: fixed;
+    top: -80px; /* hidden off-screen */
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+    background: rgba(10, 10, 15, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(79, 108, 247, 0.1);
+    padding: 0.8rem 2rem;
+    opacity: 0;
+    transition: top 0.35s ease-in-out, opacity 0.35s ease-in-out;
+    pointer-events: none; /* prevents clicking when hidden */
+}
+#top-nav.visible {
+    top: 0;
+    opacity: 1;
+    pointer-events: auto;
+}
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+.nav-logo span {
+    color: #4f6cf7;
+}
+.nav-icons {
+    list-style: none;
+    display: flex;
+    gap: 1.2rem;
+    margin: 0;
+    padding: 0;
+}
+.nav-icons li {
+    display: inline-block;
+}
+.nav-icons .icon {
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+.nav-icons .icon:hover {
+    color: #4f6cf7 !important;
+}
+
+#wrapper {
+    overflow: visible !important;
+}
+
+/* ========================================== */
+/* HERO – ANIMATED FRACTAL / MORPHING ORB     */
+/* ========================================== */
+.banner .image {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+}
+.abstract-shape {
+    width: 400px;
+    height: 400px;
+    background: conic-gradient(
+            from 0deg,
+            #4f6cf7,
+            #1a2a6c,
+            #4f6cf7,
+            #7b93ff,
+            #1a2a6c,
+            #4f6cf7
+    );
+    border-radius: 50%;
+    filter: blur(80px) brightness(0.9);
+    opacity: 0.7;
+    animation: morphingOrb 8s ease-in-out infinite alternate;
+}
+@keyframes morphingOrb {
+    0% {
+        border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+        transform: scale(1) rotate(0deg);
+        opacity: 0.6;
+    }
+    50% {
+        border-radius: 60% 40% 30% 70% / 40% 60% 70% 30%;
+        transform: scale(1.1) rotate(45deg);
+        opacity: 0.9;
+    }
+    100% {
+        border-radius: 30% 70% 50% 50% / 60% 40% 50% 50%;
+        transform: scale(0.95) rotate(90deg);
+        opacity: 0.7;
+    }
+}
+
+#about-section {
+    margin-top: 8rem; /* adds breathing room on desktop */
+}
+@media screen and (max-width: 736px) {
+    #about-section {
+        margin-top: 0.5rem; /* minimal on mobile */
+    }
+}
+
+/* ========================================== */
+/* BUTTONS – Clean, sharp, with glow on CTA   */
+/* ========================================== */
+.button.primary,
+input[type="submit"].primary {
+    background-color: #4f6cf7 !important;
+    border-color: #4f6cf7 !important;
+    color: #ffffff !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    transition: all 0.25s ease !important;
+}
+.button.primary:hover {
+    background-color: #7b93ff !important;
+    border-color: #7b93ff !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(79, 108, 247, 0.35) !important;
+}
+.button:not(.primary) {
+    border-color: rgba(79, 108, 247, 0.4) !important;
+    color: #4f6cf7 !important;
+    border-radius: 0px !important;
+}
+.button:not(.primary):hover {
+    border-color: #7b93ff !important;
+    color: #7b93ff !important;
+    background-color: rgba(79, 108, 247, 0.05) !important;
+}
+
+/* CTA "Say Hello" – Slick, large, with mail icon */
+.actions.special {
+    justify-content: center !important;
+}
+.actions.special .button.large {
+    font-size: 1.15rem !important;
+    padding: 0.9rem 2.8rem !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+    background: #4f6cf7 !important;
+    border: none !important;
+    border-radius: 0px !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(79, 108, 247, 0.25) !important;
+    transition: all 0.25s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: middle !important;
+}
+.actions.special .button.large:hover {
+    background: #7b93ff !important;
+    box-shadow: 0 8px 40px rgba(79, 108, 247, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+/* Kill any previously added pseudo-element */
+.actions.special .button.large::before {
+    content: none !important;
+}
+
+/* ========================================== */
+/* IMAGES – Sharp corners, scaled for headshot */
+/* ========================================== */
+.image img,
+.spotlight .image img,
+.banner .image img {
+    border-radius: 0px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+/* Remove the broken headshot limiter */
+.spotlight .image img {
+    max-width: 100% !important;
+    display: block;
+}
+
+/* ========================================== */
+/* FLUID SPACING – 0 on mobile, grows with screen */
+/* ========================================== */
+.wrapper {
+    padding: clamp(0rem, 4vw, 6rem) 0 !important;
+}
+.banner {
+    padding: clamp(0.5rem, 3vw, 5rem) 0 !important;
+}
+.spotlight {
+    padding: clamp(0rem, 3vw, 5rem) 0 !important;
+}
+.inner {
+    padding: clamp(0.25rem, 2vw, 2.5rem) 0 !important;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 736px) {
+    /* SPACING: almost zero on mobile */
+    .wrapper {
+        padding: 0rem 0 !important;
+    }
+    .banner {
+        padding: 0.25rem 0 !important;
+    }
+    .spotlight {
+        padding: 0rem 0 !important;
+    }
+    .inner {
+        padding: 0.25rem 0 !important;
+    }
+
+    /* Keep the other mobile overrides (nav, orb, images) */
+    .spotlight .image img {
+        max-width: 80% !important;
+    }
+    #top-nav {
+        padding: 0.6rem 1rem;
+    }
+    .nav-logo {
+        font-size: 0.9rem;
+    }
+    .nav-icons {
+        gap: 0.8rem;
+    }
+    .abstract-shape {
+        width: 200px;
+        height: 200px;
+        filter: blur(60px);
+    }
+}
+
+/* ========================================== */
+/* SKILLS TAGS – JetBrains Mono, sharp        */
+/* ========================================== */
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    max-width: 820px;
+    margin: 2rem auto 0 auto;
+}
+.tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-weight: 400;
+    font-size: 0.8rem;
+    background-color: rgba(79, 108, 247, 0.06);
+    border: 1px solid rgba(79, 108, 247, 0.2);
+    color: #d0d0e0;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2px;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+}
+.tag:hover {
+    background-color: #4f6cf7;
+    border-color: #4f6cf7;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(79, 108, 247, 0.25);
+}
+
+/* ========================================== */
+/* FOOTER – Clean, no watermark               */
+/* ========================================== */
+.footer {
+    background-color: #0a0a0f !important;
+    border-top: 1px solid rgba(79, 108, 247, 0.08) !important;
+}
+.footer .icons .icon {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+.footer .icons .icon:hover {
+    color: #4f6cf7 !important;
+}
+.footer p,
+.footer a {
+    color: rgba(255, 255, 255, 0.25) !important;
+    font-size: 0.85rem !important;
+}
+
+.project-tech {
+    margin: 0.8rem 0 1.5rem 0;
+}
+.inline-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    background: rgba(79, 108, 247, 0.08);
+    border: 1px solid rgba(79, 108, 247, 0.15);
+    color: #a0b0e0;
+    padding: 0.2rem 0.8rem;
+    border-radius: 2px;
+    margin-right: 0.4rem;
+    display: inline-block;
+}
+
+.tag-group-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: #4f6cf7;
+    letter-spacing: 0.1em;
+    opacity: 0.6;
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.2rem;
+}
+
+
+/* ========================================== */
+/* AMBIENT GLOW – now matches the hero orb    */
+/* ========================================== */
+
+/* Outer container – JS controls position + opacity */
+.ambient-glow {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: clamp(300px, 35vw, 500px);  /* similar to hero, scales nicely */
+    height: clamp(300px, 35vw, 500px);
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform, opacity;
+    transform: translate(0px, 0px); /* overridden by JS */
+    opacity: 0; /* JS controls this */
+}
+
+/* Inner visual – identical to .abstract-shape */
+.ambient-glow .ambient-inner {
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(
+            from 0deg,
+            #4f6cf7,
+            #1a2a6c,
+            #4f6cf7,
+            #7b93ff,
+            #1a2a6c,
+            #4f6cf7
+    );
+    border-radius: 50%;
+    filter: blur(80px) brightness(0.9);
+    animation: morphingOrbBg 8s ease-in-out infinite alternate;
+    will-change: transform, border-radius;
+}
+
+/* Morphing keyframe – without opacity changes, so JS fade works perfectly */
+@keyframes morphingOrbBg {
+    0% {
+        border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        border-radius: 60% 40% 30% 70% / 40% 60% 70% 30%;
+        transform: scale(1.1) rotate(45deg);
+    }
+    100% {
+        border-radius: 30% 70% 50% 50% / 60% 40% 50% 50%;
+        transform: scale(0.95) rotate(90deg);
+    }
+}
+
+/* The hero's original orb stays as is, but now matches perfectly */
+.abstract-shape {
+    width: 400px;
+    height: 400px;
+    background: conic-gradient(
+            from 0deg,
+            #4f6cf7,
+            #1a2a6c,
+            #4f6cf7,
+            #7b93ff,
+            #1a2a6c,
+            #4f6cf7
+    );
+    border-radius: 50%;
+    filter: blur(80px) brightness(0.9);
+    opacity: 0.7;
+    animation: morphingOrb 8s ease-in-out infinite alternate;
+}
+
+
+
+/* Remove all section borders/lines */
+.divided > section,
+.divided > .wrapper,
+.divided > .spotlight {
+    border-top: none !important;
+    border-bottom: none !important;
+}
+/* In case any child element has borders */
+.spotlight, .wrapper, .banner {
+    border: none !important;
+}
