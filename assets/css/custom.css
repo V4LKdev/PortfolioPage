@@ -1,468 +1,1261 @@
 
-/* ================================================
-   CUSTOM OVERRIDES – Dark + Electric Blue
-   Fonts: Inter (body) + JetBrains Mono (tags/code)
-   REFINED: Nav, animations, spacing, readability
-   ================================================ */
+/* =========================================================
+   CUSTOM OVERRIDES
+   Iceland-inspired dark portfolio theme
 
-/* 1. Import fonts */
+   Visual language:
+   - coal and volcanic ash
+   - basalt and wet stone
+   - darker cold ocean blue
+   - restrained icy accents
+   - lava orange for actions
+   - simple mystical fallback visual
+
+   Fonts:
+   - Inter
+   - JetBrains Mono
+   ========================================================= */
+
+
+/* =========================================================
+   1. FONTS AND DESIGN TOKENS
+   ========================================================= */
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;600&display=swap');
 
-/* 2. Global reset */
+:root {
+    /* Coal, ash and basalt */
+    --colour-background: #080b0c;
+    --colour-background-soft: #0c1112;
+    --colour-surface: #101719;
+    --colour-surface-raised: #182226;
+    --colour-surface-light: #223034;
+
+    /* Typography */
+    --colour-text: #edf5f3;
+    --colour-text-muted: #b5c5c1;
+    --colour-text-subtle: #758783;
+
+    /* Midnight ocean and cold ice blue */
+    --colour-ice: #78aef5;
+    --colour-ice-bright: #b8d7ff;
+
+    --colour-ocean: #2868aa;
+    --colour-ocean-deep: #123d70;
+    --colour-ocean-dark: #091f3d;
+
+    /* Lava and ember */
+    --colour-lava: #ff6938;
+    --colour-lava-light: #ff8b5b;
+    --colour-lava-dark: #d94d29;
+    --colour-ember: #a73a22;
+
+    /* Semantic aliases */
+    --colour-accent: var(--colour-ice);
+    --colour-accent-light: var(--colour-ice-bright);
+    --colour-action: var(--colour-lava);
+    --colour-action-hover: var(--colour-lava-light);
+
+    --font-body:
+            'Inter',
+            -apple-system,
+            BlinkMacSystemFont,
+            sans-serif;
+
+    --font-mono:
+            'JetBrains Mono',
+            monospace;
+}
+
+
+/* =========================================================
+   2. GLOBAL THEME
+   ========================================================= */
+
+html {
+    background: var(--colour-background);
+}
+
 body,
 input,
 select,
 textarea {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    background-color: #0a0a0f !important;
-    color: #ffffff !important;
-}
-.wrapper,
-.banner,
-.spotlight {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    color: #ffffff !important;
+    font-family: var(--font-body) !important;
+    background-color: var(--colour-background) !important;
+    color: var(--colour-text) !important;
 }
 
-/* 3. Headings */
-h1, h2, h3, h4, h5, h6,
-.banner h1, .spotlight h2, .wrapper h2 {
-    font-family: 'Inter', sans-serif !important;
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
+#wrapper {
+    position: relative;
+    z-index: 1;
+
+    overflow: visible !important;
+    background: transparent !important;
+}
+
+/* Only sections that should reveal the ambient background */
+#about-section,
+#project-alpha,
+#project-beta,
+#project-gamma,
+#project-delta,
+#toolbox-section,
+#contact-section,
+footer.wrapper {
+    background-color: transparent !important;
+}
+
+
+/* =========================================================
+   3. TYPOGRAPHY
+   ========================================================= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.banner h1,
+.spotlight h2,
+.wrapper h2 {
+    font-family: var(--font-body) !important;
     font-weight: 700 !important;
     letter-spacing: -0.02em !important;
-    color: #ffffff !important;
+    color: var(--colour-text) !important;
 }
 
-/* 4. Body text */
-p, li, .content p {
-    color: #c0c0d0 !important;
+p,
+li,
+.content p {
+    color: var(--colour-text-muted) !important;
     line-height: 1.7 !important;
 }
-strong, b {
-    color: #ffffff !important;
+
+strong,
+b {
+    color: var(--colour-text) !important;
 }
 
-/* 5. Accent: Electric Blue */
-a, a:visited {
-    color: #4f6cf7 !important;
+
+/* =========================================================
+   4. LINKS
+   ========================================================= */
+
+a,
+a:visited {
+    color: var(--colour-ice) !important;
 }
+
 a:hover {
-    color: #7b93ff !important;
+    color: var(--colour-ice-bright) !important;
 }
 
-/* ========================================== */
-/* TOP NAVIGATION BAR                         */
-/* ========================================== */
+
+/* =========================================================
+   5. TOP NAVIGATION
+   ========================================================= */
+
 #top-nav {
     position: fixed;
     top: -80px;
     left: 0;
+
     width: 100%;
+    padding: 0.8rem 2rem;
+
     z-index: 10000;
-    background: rgba(10, 10, 15, 0.92);
+
+    background: rgba(8, 11, 12, 0.92);
+
+    border-bottom:
+            1px solid rgba(135, 207, 215, 0.10);
+
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(79, 108, 247, 0.1);
-    padding: 0.8rem 2rem;
+
     opacity: 0;
-    transition: top 0.35s ease-in-out, opacity 0.35s ease-in-out;
     pointer-events: none;
+
+    transition:
+            top 0.35s ease-in-out,
+            opacity 0.35s ease-in-out;
 }
+
 #top-nav.visible {
     top: 0;
     opacity: 1;
     pointer-events: auto;
 }
+
 .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
+
 .nav-logo {
-    font-family: 'JetBrains Mono', monospace;
-    font-weight: 600;
+    font-family: var(--font-mono);
     font-size: 1.1rem;
-    color: #ffffff;
+    font-weight: 600;
     letter-spacing: -0.02em;
+
+    color: var(--colour-text);
 }
+
 .nav-logo span {
-    color: #4f6cf7;
+    color: var(--colour-lava);
 }
+
 .nav-icons {
-    list-style: none;
     display: flex;
     gap: 1.2rem;
+
     margin: 0;
     padding: 0;
+
+    list-style: none;
 }
+
 .nav-icons li {
     display: inline-block;
 }
+
 .nav-icons .icon {
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: rgba(237, 245, 243, 0.48) !important;
     font-size: 1.2rem;
-    transition: color 0.2s ease;
-}
-.nav-icons .icon:hover {
-    color: #4f6cf7 !important;
+
+    transition:
+            color 0.2s ease,
+            transform 0.2s ease;
 }
 
-#wrapper {
+.nav-icons .icon:hover {
+    color: var(--colour-ice) !important;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   6. HERO LAYOUT
+   ========================================================= */
+
+.banner {
+    position: relative;
+    overflow: hidden !important;
+    isolation: isolate;
+}
+
+.banner > .content {
+    position: relative;
+    z-index: 3;
+}
+
+.banner .image,
+.hero-visual {
+    position: relative !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    z-index: 2;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
     overflow: visible !important;
     background: transparent !important;
 }
 
-/* ========================================== */
-/* HERO – ANIMATED FRACTAL / MORPHING ORB     */
-/* ========================================== */
-.banner .image {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: transparent !important;
+
+/* =========================================================
+   7. FALLBACK LOGO
+   ========================================================= */
+
+.banner .hero-visual .fallback-logo {
+    position: static !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    display: block !important;
+
+    /*
+     * Fluid relative sizing:
+     * scales with the hero image column instead of sticking
+     * to one clamp maximum at normal desktop widths.
+     */
+    width: 50% !important;
+    height: auto !important;
+    min-width: 140px !important;
+    max-width: 320px !important;
+    max-height: none !important;
+
+    margin: 0 auto !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    opacity: 0.94;
+
+    filter:
+            drop-shadow(0 0 10px rgba(40, 104, 170, 0.20))
+            drop-shadow(0 0 26px rgba(18, 61, 112, 0.16));
+
+    /*
+     * No rotation. The animation only floats and breathes.
+     */
+    transform: translate3d(0, 0, 0);
+    transform-origin: center;
+
+    animation: none !important;
+
+    pointer-events: none;
+    user-select: none;
 }
-.abstract-shape {
-    width: 400px;
-    height: 400px;
-    background: conic-gradient(
-            from 0deg,
-            #4f6cf7,
-            #1a2a6c,
-            #4f6cf7,
-            #7b93ff,
-            #1a2a6c,
-            #4f6cf7
-    );
-    border-radius: 50%;
-    filter: blur(80px) brightness(0.9);
-    opacity: 0.7;
-    animation: morphingOrb 8s ease-in-out infinite alternate;
+
+
+/* =========================================================
+   8. FRACTAL CANVAS
+   ========================================================= */
+
+.fractal-canvas {
+    position: absolute;
+    inset: 0;
+
+    z-index: 1;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+    border-radius: 0;
+
+    background: transparent;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: none;
 }
-@keyframes morphingOrb {
-    0% {
-        border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
-        transform: scale(1) rotate(0deg);
-        opacity: 0.6;
-    }
-    50% {
-        border-radius: 60% 40% 30% 70% / 40% 60% 70% 30%;
-        transform: scale(1.1) rotate(45deg);
-        opacity: 0.9;
-    }
-    100% {
-        border-radius: 30% 70% 50% 50% / 60% 40% 50% 50%;
-        transform: scale(0.95) rotate(90deg);
-        opacity: 0.7;
-    }
+
+.banner.fractal-enabled .fractal-canvas {
+    opacity: 1;
+    visibility: visible;
 }
+
+.banner.fractal-enabled .hero-visual {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   9. FRACTAL LABEL
+   ========================================================= */
+
+.fractal-label {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.25rem;
+
+    z-index: 4;
+
+    display: none;
+    align-items: baseline;
+    gap: 0.55rem;
+
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+.banner.fractal-enabled .fractal-label {
+    display: flex;
+}
+
+.fractal-label-prefix {
+    color: rgba(181, 197, 193, 0.48);
+}
+
+.fractal-label-name {
+    color: rgba(135, 207, 215, 0.84);
+}
+
+
+/* =========================================================
+   10. SECTION SPACING
+   ========================================================= */
 
 #about-section {
     margin-top: 8rem;
 }
-@media screen and (max-width: 736px) {
-    #about-section {
-        margin-top: 0.5rem;
+
+.wrapper {
+    padding: 4rem 0 !important;
+}
+
+.banner {
+    padding: 3rem 0 !important;
+}
+
+.spotlight {
+    padding: 3.5rem 0 !important;
+}
+
+.inner {
+    padding: 2rem 0 !important;
+}
+
+@media screen and (max-width: 980px) and (min-width: 737px) {
+    .wrapper {
+        padding: 3rem 0 !important;
+    }
+
+    .banner,
+    .spotlight {
+        padding: 2.5rem 0 !important;
+    }
+
+    .inner {
+        padding: 1.5rem 0 !important;
     }
 }
 
-/* ========================================== */
-/* BUTTONS – Clean, sharp, with glow on CTA   */
-/* ========================================== */
+
+/* =========================================================
+   11. BUTTONS
+   ========================================================= */
+
 .button.primary,
-input[type="submit"].primary {
-    background-color: #4f6cf7 !important;
-    border-color: #4f6cf7 !important;
-    color: #ffffff !important;
-    border-radius: 0px !important;
-    box-shadow: none !important;
-    transition: all 0.25s ease !important;
-}
-.button.primary:hover {
-    background-color: #7b93ff !important;
-    border-color: #7b93ff !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 20px rgba(79, 108, 247, 0.35) !important;
-}
-.button:not(.primary) {
-    border-color: rgba(79, 108, 247, 0.4) !important;
-    color: #4f6cf7 !important;
-    border-radius: 0px !important;
-}
-.button:not(.primary):hover {
-    border-color: #7b93ff !important;
-    color: #7b93ff !important;
-    background-color: rgba(79, 108, 247, 0.05) !important;
+input[type='submit'].primary {
+    color: #fff7f2 !important;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    var(--colour-lava),
+                    var(--colour-lava-dark)
+            ) !important;
+
+    border-color: var(--colour-lava) !important;
+    border-radius: 0 !important;
+
+    box-shadow:
+            0 8px 28px rgba(255, 105, 56, 0.18) !important;
+
+    transition:
+            background-color 0.25s ease,
+            border-color 0.25s ease,
+            box-shadow 0.25s ease,
+            transform 0.25s ease !important;
 }
 
-/* CTA "Say Hello" */
+.button.primary:hover {
+    color: #ffffff !important;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    var(--colour-lava-light),
+                    var(--colour-lava)
+            ) !important;
+
+    border-color:
+            var(--colour-lava-light) !important;
+
+    box-shadow:
+            0 10px 36px rgba(255, 105, 56, 0.30) !important;
+
+    transform: translateY(-2px);
+}
+
+.button:not(.primary) {
+    color: var(--colour-ice) !important;
+
+    border-color:
+            rgba(135, 207, 215, 0.38) !important;
+
+    border-radius: 0 !important;
+
+    background:
+            rgba(18, 61, 112, 0.045) !important;
+}
+
+.button:not(.primary):hover {
+    color:
+            var(--colour-ice-bright) !important;
+
+    border-color:
+            rgba(183, 228, 234, 0.72) !important;
+
+    background:
+            rgba(135, 207, 215, 0.07) !important;
+}
+
+
+/* Contact CTA */
+
 .actions.special {
     justify-content: center !important;
 }
+
 .actions.special .button.large {
-    font-size: 1.15rem !important;
-    padding: 0.9rem 2.8rem !important;
-    height: auto !important;
-    line-height: 1.4 !important;
-    background: #4f6cf7 !important;
-    border: none !important;
-    border-radius: 0px !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 20px rgba(79, 108, 247, 0.25) !important;
-    transition: all 0.25s ease !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+
+    height: auto !important;
+    padding: 0.9rem 2.8rem !important;
+
+    font-size: 1.15rem !important;
+    line-height: 1.4 !important;
     vertical-align: middle !important;
+
+    color: #fff7f2 !important;
+
+    background:
+            linear-gradient(
+                    135deg,
+                    var(--colour-lava),
+                    var(--colour-lava-dark)
+            ) !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    box-shadow:
+            0 8px 28px rgba(255, 105, 56, 0.20) !important;
+
+    transition:
+            background-color 0.25s ease,
+            box-shadow 0.25s ease,
+            transform 0.25s ease !important;
 }
+
 .actions.special .button.large:hover {
-    background: #7b93ff !important;
-    box-shadow: 0 8px 40px rgba(79, 108, 247, 0.4) !important;
+    background:
+            linear-gradient(
+                    135deg,
+                    var(--colour-lava-light),
+                    var(--colour-lava)
+            ) !important;
+
+    box-shadow:
+            0 12px 42px rgba(255, 105, 56, 0.32) !important;
+
     transform: translateY(-2px) !important;
 }
+
 .actions.special .button.large::before {
     content: none !important;
 }
 
-/* ========================================== */
-/* IMAGES – Sharp corners                      */
-/* ========================================== */
-.image img,
-.spotlight .image img,
-.banner .image img {
-    border-radius: 0px !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+
+/* =========================================================
+   12. CONTENT IMAGES
+   ========================================================= */
+
+.image img:not(.fallback-logo),
+.spotlight .image img:not(.fallback-logo),
+.banner .image img:not(.fallback-logo) {
     display: block;
     width: 100%;
     height: auto;
-}
-.spotlight .image img {
-    max-width: 100% !important;
-    display: block;
-}
-
-/* ========================================== */
-/* FLUID SPACING                              */
-/* ========================================== */
-.wrapper {
-    padding: clamp(0rem, 4vw, 6rem) 0 !important;
-}
-.banner {
-    padding: clamp(0.5rem, 3vw, 5rem) 0 !important;
-}
-.spotlight {
-    padding: clamp(0rem, 3vw, 5rem) 0 !important;
-}
-.inner {
-    padding: clamp(0.25rem, 2vw, 2.5rem) 0 !important;
+    border-radius: 0 !important;
+    box-shadow:
+            0 8px 30px rgba(0, 0, 0, 0.55) !important;
 }
 
-/* Mobile responsiveness */
+.spotlight > .content,
+.spotlight > .image {
+    min-width: 0;
+}
+
+@media screen and (min-width: 737px) {
+    .spotlight > .content {
+        flex: 0 0 54%;
+        width: 54%;
+    }
+
+    .spotlight > .image {
+        flex: 0 0 46%;
+        width: 46%;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+        background: transparent !important;
+    }
+
+    .spotlight > .image img:not(.fallback-logo) {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        object-fit: contain !important;
+        object-position: center !important;
+    }
+}
+
 @media screen and (max-width: 736px) {
-    .wrapper {
-        padding: 0rem 0 !important;
+    .spotlight > .image,
+    .spotlight.style1 > .image,
+    .spotlight .image.glow-anchor {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+
+        margin: 0 auto !important;
+        padding: 1.5rem !important;
+
+        overflow: visible !important;
+        background: transparent !important;
+        background-color: transparent !important;
     }
-    .banner {
-        padding: 0.25rem 0 !important;
+
+    .spotlight > .image::before,
+    .spotlight > .image::after,
+    .spotlight.style1 > .image::before,
+    .spotlight.style1 > .image::after {
+        content: none !important;
+        display: none !important;
+        background: none !important;
     }
-    .spotlight {
-        padding: 0rem 0 !important;
-    }
-    .inner {
-        padding: 0.25rem 0 !important;
-    }
-    .spotlight .image img {
-        max-width: 80% !important;
-    }
-    #top-nav {
-        padding: 0.6rem 1rem;
-    }
-    .nav-logo {
-        font-size: 0.9rem;
-    }
-    .nav-icons {
-        gap: 0.8rem;
-    }
-    .abstract-shape {
-        width: 200px;
-        height: 200px;
-        filter: blur(60px);
+
+    .spotlight > .image img:not(.fallback-logo),
+    .spotlight.style1 > .image img:not(.fallback-logo),
+    .spotlight .image.glow-anchor img:not(.fallback-logo) {
+        position: relative !important;
+        inset: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+
+        display: block !important;
+
+        width: auto !important;
+        height: auto !important;
+        max-width: min(88vw, 680px) !important;
+        max-height: none !important;
+
+        margin: 0 auto !important;
+
+        object-fit: contain !important;
+        object-position: center !important;
+
+        transform: none !important;
     }
 }
 
-/* ========================================== */
-/* SKILLS TAGS – JetBrains Mono               */
-/* ========================================== */
+
+/* =========================================================
+   13. PROJECT TAGS
+   ========================================================= */
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.4rem;
+
+    margin: 0.8rem 0 1.5rem;
+}
+
+
+.inline-tag {
+    display: inline-block;
+
+    margin: 0;
+    padding: 0.2rem 0.8rem;
+
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+
+    color: #9fc9c7;
+
+    background: rgba(22, 77, 89, 0.15);
+
+    border: 1px solid rgba(44, 127, 148, 0.22);
+    border-radius: 2px;
+}
+
+
+/* =========================================================
+   14. SKILLS TAGS
+   ========================================================= */
+
 .skills-tags {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.6rem;
+
     max-width: 820px;
-    margin: 2rem auto 0 auto;
+    margin: 2rem auto 0;
 }
+
 .tag {
     display: inline-block;
-    font-family: 'JetBrains Mono', monospace !important;
-    font-weight: 400;
-    font-size: 0.8rem;
-    background-color: rgba(79, 108, 247, 0.06);
-    border: 1px solid rgba(79, 108, 247, 0.2);
-    color: #d0d0e0;
+
     padding: 0.4rem 1.2rem;
-    border-radius: 2px;
+
+    font-family: var(--font-mono) !important;
+    font-size: 0.8rem;
+    font-weight: 400;
     letter-spacing: 0.02em;
-    transition: all 0.2s ease;
-}
-.tag:hover {
-    background-color: #4f6cf7;
-    border-color: #4f6cf7;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(79, 108, 247, 0.25);
-}
 
-/* ========================================== */
-/* FOOTER                                     */
-/* ========================================== */
-.footer {
-    background-color: #0a0a0f !important;
-    border-top: 1px solid rgba(79, 108, 247, 0.08) !important;
-}
-.footer .icons .icon {
-    color: rgba(255, 255, 255, 0.3) !important;
-}
-.footer .icons .icon:hover {
-    color: #4f6cf7 !important;
-}
-.footer p,
-.footer a {
-    color: rgba(255, 255, 255, 0.25) !important;
-    font-size: 0.85rem !important;
-}
+    color: #c2d4d0;
 
-.project-tech {
-    margin: 0.8rem 0 1.5rem 0;
-}
-.inline-tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    background: rgba(79, 108, 247, 0.08);
-    border: 1px solid rgba(79, 108, 247, 0.15);
-    color: #a0b0e0;
-    padding: 0.2rem 0.8rem;
+    background:
+            linear-gradient(
+                    135deg,
+                    rgba(22, 77, 89, 0.12),
+                    rgba(16, 23, 25, 0.34)
+            );
+
+    border:
+            1px solid rgba(44, 127, 148, 0.22);
+
     border-radius: 2px;
-    margin-right: 0.4rem;
-    display: inline-block;
+
+    transition:
+            color 0.2s ease,
+            background-color 0.2s ease,
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            transform 0.2s ease;
+}
+
+.tag:hover {
+    color: var(--colour-text);
+
+    background:
+            rgba(22, 77, 89, 0.42);
+
+    border-color:
+            rgba(135, 207, 215, 0.55);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+            0 8px 26px rgba(15, 49, 58, 0.45);
 }
 
 .tag-group-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: #4f6cf7;
-    letter-spacing: 0.1em;
-    opacity: 0.6;
     width: 100%;
-    text-align: center;
+
     margin-top: 0.5rem;
     margin-bottom: 0.2rem;
+
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-align: center;
+
+    color: var(--colour-lava);
+
+    opacity: 0.78;
 }
 
-/* Remove borders/lines */
+
+/* =========================================================
+   15. FOOTER
+   ========================================================= */
+
+.footer {
+    background-color:
+            var(--colour-background) !important;
+
+    border-top:
+            1px solid rgba(135, 207, 215, 0.08) !important;
+}
+
+.footer .icons .icon {
+    color:
+            rgba(181, 197, 193, 0.34) !important;
+}
+
+.footer .icons .icon:hover {
+    color: var(--colour-ice) !important;
+}
+
+.footer p,
+.footer a {
+    color:
+            rgba(181, 197, 193, 0.30) !important;
+
+    font-size: 0.85rem !important;
+}
+
+
+/* =========================================================
+   16. REMOVE TEMPLATE DIVIDERS
+   ========================================================= */
+
 .divided > section,
 .divided > .wrapper,
 .divided > .spotlight {
-    border-top: none !important;
-    border-bottom: none !important;
-}
-.spotlight, .wrapper, .banner {
-    border: none !important;
+    border-top: 0 !important;
+    border-bottom: 0 !important;
 }
 
-/* ========================================== */
-/* DISABLE SCROLL FADE-IN ON IMAGES           */
-/* ========================================== */
-.onscroll-image-fade-in .image img,
+.spotlight,
+.wrapper,
+.banner {
+    border: 0 !important;
+}
+
+
+/* =========================================================
+   17. DISABLE TEMPLATE IMAGE FADE EFFECTS
+   ========================================================= */
+
+.onscroll-image-fade-in .image img:not(.fallback-logo),
 .onscroll-image-fade-in .image,
-.banner .image img,
-.spotlight .image img {
+.banner .image img:not(.fallback-logo),
+.spotlight .image img:not(.fallback-logo) {
     opacity: 1 !important;
     transform: scale(1) !important;
     transition: none !important;
     animation: none !important;
 }
 
-/* Also catch any wrapper that might hide things on load */
-body.is-preload .image img {
+body.is-preload .image img:not(.fallback-logo) {
     opacity: 1 !important;
 }
 
-/* ========================================== */
-/* AMBIENT BACKGROUND – subtle, drifting aurora */
-/* ========================================== */
+
+/* =========================================================
+   18. AMBIENT PAGE BACKGROUND
+   ========================================================= */
 
 @keyframes ambientSwirl {
-    0%   { background-position: 0% 0%, 0% 0%; }
-    25%  { background-position: 100% 0%, 100% 0%; }
-    50%  { background-position: 100% 100%, 100% 100%; }
-    75%  { background-position: 0% 100%, 0% 100%; }
-    100% { background-position: 0% 0%, 0% 0%; }
+    0% {
+        background-position:
+                0% 0%,
+                0% 0%;
+    }
+
+    25% {
+        background-position:
+                100% 0%,
+                100% 0%;
+    }
+
+    50% {
+        background-position:
+                100% 100%,
+                100% 100%;
+    }
+
+    75% {
+        background-position:
+                0% 100%,
+                0% 100%;
+    }
+
+    100% {
+        background-position:
+                0% 0%,
+                0% 0%;
+    }
 }
 
 #ambient-bg {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
+
     width: 100%;
     height: 100vh;
-    z-index: -1;
+
+    z-index: 0;
+
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.4s ease-in-out;  /* FAST toggle */
 
-    /* ---- THREE SMALL, SOFT AURORA PATCHES ---- */
     background:
-        /* Patch 1: upper-left */
-            radial-gradient(ellipse 50% 40% at 25% 30%,
-            rgba(79, 108, 247, 0.06) 0%,
-            rgba(26, 42, 108, 0.03) 40%,
-            transparent 70%
+            radial-gradient(
+                    ellipse 55% 42% at 22% 28%,
+                    rgba(40, 104, 170, 0.090) 0%,
+                    rgba(18, 61, 112, 0.045) 42%,
+                    transparent 72%
             ),
-                /* Patch 2: lower-right */
-            radial-gradient(ellipse 45% 35% at 75% 70%,
-            rgba(123, 147, 255, 0.04) 0%,
-            rgba(79, 108, 247, 0.02) 40%,
-            transparent 70%
-            ),
-                /* Patch 3: bottom-center (subtle) */
-            radial-gradient(ellipse 50% 30% at 50% 100%,
-            rgba(26, 42, 108, 0.06) 0%,
-            transparent 60%
-            ),
-                /* Solid dark base – keeps the page dark */
-            #0a0a0f;
 
-    background-size: 200% 200%, 200% 200%, 100% 100%;
-    animation: ambientSwirl 12s ease-in-out infinite alternate;
-    will-change: background-position, opacity;
+            radial-gradient(
+                    ellipse 42% 34% at 80% 68%,
+                    rgba(255, 105, 56, 0.042) 0%,
+                    rgba(167, 58, 34, 0.022) 42%,
+                    transparent 72%
+            ),
+
+            radial-gradient(
+                    ellipse 52% 28% at 52% 100%,
+                    rgba(120, 174, 245, 0.052) 0%,
+                    transparent 64%
+            ),
+
+            var(--colour-background);
+
+    background-size:
+            200% 200%,
+            200% 200%,
+            100% 100%;
+
+    animation:
+            ambientSwirl 12s ease-in-out infinite alternate;
+
+    transition:
+            opacity 0.4s ease-in-out;
+
+    will-change:
+            background-position,
+            opacity;
+}
+#wrapper > section,
+#wrapper > footer {
+    position: relative;
+    z-index: 1;
 }
 
-/* ---- NOISE OVERLAY – kills banding completely ---- */
 #ambient-bg::after {
     content: '';
+
     position: absolute;
     inset: 0;
+
     width: 100%;
     height: 100%;
+
     pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
+
+    background-image:
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.35'/%3E%3C/svg%3E");
+
     background-repeat: repeat;
     background-size: 256px 256px;
-    opacity: 0.25;
+
+    opacity: 0.22;
     mix-blend-mode: overlay;
 }
 
 #ambient-bg.visible {
     opacity: 1;
+}
+
+
+/* =========================================================
+   19. MOBILE
+   ========================================================= */
+
+@media screen and (max-width: 736px) {
+    /*
+     * The HTML5 UP portrait layout normally gives both the image and
+     * content half of the viewport. That creates a huge empty gap when
+     * the fallback is a compact logo instead of a full-bleed photograph.
+     */
+    .banner.style1.fullscreen {
+        min-height: 100svh !important;
+    }
+
+    .banner.style1.fullscreen .hero-visual,
+    .banner.style1.fullscreen .image {
+        height: 34svh !important;
+        min-height: 220px !important;
+        max-height: 340px !important;
+    }
+
+    .banner.style1.fullscreen .content {
+        min-height: auto !important;
+        padding: 1.25rem 1.5rem 2.5rem !important;
+        justify-content: flex-start !important;
+    }
+
+    .wrapper {
+        padding: 0 !important;
+    }
+
+    .banner {
+        padding: 0.25rem 0 !important;
+    }
+
+    .spotlight {
+        padding: 0 !important;
+    }
+
+    .inner {
+        padding: 0.25rem 0 !important;
+    }
+
+    #top-nav {
+        padding: 0.6rem 1rem;
+    }
+
+    .nav-logo {
+        font-size: 0.9rem;
+    }
+
+    .nav-icons {
+        gap: 0.8rem;
+    }
+
+    .fractal-canvas {
+        display: none !important;
+    }
+
+    .banner.fractal-enabled .fractal-canvas {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    .hero-visual,
+    .banner.fractal-enabled .hero-visual {
+        display: flex !important;
+
+        opacity: 1;
+        visibility: visible;
+    }
+    .banner .hero-visual .fallback-logo {
+        width: 28vw !important;
+        min-width: 82px !important;
+        max-width: 150px !important;
+        max-height: none !important;
+
+        filter:
+                drop-shadow(0 0 8px rgba(40, 104, 170, 0.18))
+                drop-shadow(0 0 18px rgba(18, 61, 112, 0.12));
+    }
+
+    .fractal-label,
+    .banner.fractal-enabled .fractal-label {
+        display: none !important;
+    }
+
+    #about-section {
+        margin-top: 0.5rem;
+    }
+}
+
+
+/* =========================================================
+   20. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .fractal-canvas {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    .hero-visual,
+    .banner.fractal-enabled .hero-visual {
+        display: flex !important;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .fractal-label {
+        display: none !important;
+    }
+    .banner .hero-visual .fallback-logo {
+        animation: none !important;
+
+        transform:
+                translate3d(0, 0, 0)
+                scale(1);
+
+        opacity: 0.96;
+    }
+    #top-nav,
+    .button,
+    .tag {
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.hero-scroll-cue {
+    display: none;
+}
+
+@media screen and (max-width: 736px) {
+    .banner .hero-visual .fallback-logo {
+        width: 32vw !important;
+        min-width: 100px !important;
+        max-width: 175px !important;
+    }
+
+    .hero-scroll-cue {
+        position: absolute;
+        left: 50%;
+        bottom: 2rem;
+
+        z-index: 5;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 44px;
+        height: 44px;
+
+        transform: translateX(-50%);
+
+        border: 1px solid rgba(120, 174, 245, 0.22);
+        border-radius: 50%;
+
+        background: rgba(9, 31, 61, 0.10);
+
+        text-decoration: none !important;
+
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+
+        animation:
+                heroScrollCueFloat 2.2s ease-in-out infinite;
+    }
+
+    .hero-scroll-cue span {
+        display: block;
+
+        width: 10px;
+        height: 10px;
+
+        border-right: 2px solid rgba(184, 215, 255, 0.82);
+        border-bottom: 2px solid rgba(184, 215, 255, 0.82);
+
+        transform:
+                translateY(-2px)
+                rotate(45deg);
+    }
+
+    .hero-scroll-cue:hover {
+        border-color: rgba(120, 174, 245, 0.50);
+        background: rgba(18, 61, 112, 0.20);
+    }
+}
+
+@keyframes heroScrollCueFloat {
+    0%,
+    100% {
+        transform:
+                translateX(-50%)
+                translateY(0);
+
+        opacity: 0.58;
+    }
+
+    50% {
+        transform:
+                translateX(-50%)
+                translateY(7px);
+
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-scroll-cue {
+        animation: none !important;
+    }
+}
+
+/* Project button layout */
+.project-actions {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+
+    margin-top: 1.5rem;
+}
+
+.project-actions li {
+    display: block;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.project-actions .button {
+    width: auto !important;
+    min-width: 0;
+    white-space: nowrap;
+}
+
+/* Keep the primary action visually dominant */
+.project-actions li:first-child {
+    flex-basis: 100%;
+}
+
+/* Secondary actions share the available row */
+.project-actions li:not(:first-child) {
+    flex: 0 1 auto;
+}
+
+@media screen and (max-width: 480px) {
+    .project-actions {
+        gap: 0.6rem;
+    }
+
+    .project-actions li,
+    .project-actions li:first-child,
+    .project-actions li:not(:first-child) {
+        flex: 1 1 100%;
+    }
+
+    .project-actions .button {
+        width: 100% !important;
+        text-align: center;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE LAYOUT STABILITY
+   ========================================================= */
+
+.wrapper,
+.banner,
+.spotlight,
+.spotlight > .content,
+.spotlight > .image,
+.project-actions {
+    transition-property: background-color, border-color, color, opacity !important;
+}
+
+@media screen and (max-width: 900px) and (min-width: 481px) {
+    .project-actions li:not(:first-child) {
+        flex: 1 1 calc(50% - 0.375rem);
+    }
+
+    .project-actions li:not(:first-child) .button {
+        width: 100% !important;
+        text-align: center;
+    }
 }
