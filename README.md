@@ -1,2 +1,2 @@
 # Live at
-(here)[https://nico.martin.li]
+[here](https://nico.martin.li)
